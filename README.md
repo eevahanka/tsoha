@@ -18,3 +18,5 @@ Ominaisuuksia:
  - Käyttäjä voi etsiä sivustolta viestit jotka sisältävät tietyn sanan
  - Ylläpitäjä voi lisätä ja poistaa keskustelualueita
  - Ylläpitäjä voi luoda salaisen alueen ja määrittää, ketkä pääsevät alueelle
+
+[Linkki herokuun](https://tranquil-savannah-17248.herokuapp.com/ "Herokussa")
