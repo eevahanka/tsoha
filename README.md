@@ -4,10 +4,13 @@ Sovelluksen etusivulla on keskustelualueita, joilla on aihe. Alueilla on käytt�
 
 Käyttäjät ovat ylläpitäjiä, tai peruskäyttäjiä.
 
+Tällä hetkellä sovellukseen pystyy rekisteröitymään ja kirjautumaan sisään ja ulos. 
+
 Ominaisuuksia:
 
 - Luoda uusi käyttäjätunnus
 - Kirjautua sisään ja ulos 
+- Kirjautunut käyttäjä näkee, milloin on edellisen kerran kirjautunut sisään
 - Käyttäjä näkee etusivulla listan keskustelu alueista, sekä viimeisimmän viestin ajankohdan
 - Käyttäjä voi luoda keskustelualueelle uuden ketjun
   - antaa ketjulle otsikon
@@ -17,6 +20,5 @@ Ominaisuuksia:
  - Käyttäjä voi poistaa luuomansa viestin tai ketjun
  - Käyttäjä voi etsiä sivustolta viestit jotka sisältävät tietyn sanan
  - Ylläpitäjä voi lisätä ja poistaa keskustelualueita
- - Ylläpitäjä voi luoda salaisen alueen ja määrittää, ketkä pääsevät alueelle
-
+ 
 [Linkki herokuun](https://tranquil-savannah-17248.herokuapp.com/ "Herokussa")
