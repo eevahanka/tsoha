@@ -9,7 +9,7 @@ import users
 
 @app.route("/")
 def index():
-    return render_template("index.html", username="eeva")  # users.username()
+    return render_template("index.html", username=users.username())
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
