@@ -9,7 +9,7 @@ import users
 
 @app.route("/")
 def index():
-    return render_template("index.html", username = users.username())
+    return render_template("index.html", "eeva")  # username = users.username()
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -42,5 +42,5 @@ def register():
         if users.register(username, password1):
             return redirect("/")
         else:
-            
+
             return render_template("error.html")
