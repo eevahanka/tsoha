@@ -42,4 +42,4 @@ def register():
         if users.register(username, password1):
             return redirect("/")
         else:
-            return render_template("error.html", problem = "")
+            return render_template("error.html", problem = "todennäkösesti kannattaa vaihtaa käyttäjä nimi")
