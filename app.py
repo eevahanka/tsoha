@@ -21,7 +21,7 @@ def login():
         if users.login(username, password):
             return redirect("/")
         else:
-            return render_template("error.html")
+            return render_template("error.html", problem="kirjautuminen epäonnistui")
 
 @app.route("/logout")
 def logout():
@@ -38,8 +38,8 @@ def register():
         password2 = request.form["password2"]
         if password1 != password2:
             #salasanat ei täsmää
-            return render_template("error.html")
+            return render_template("error.html", problem = "salasanat eivät täsmää")
         if users.register(username, password1):
             return redirect("/")
         else:
-            return render_template("error.html")
+            return render_template("error.html", problem = "")
