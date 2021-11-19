@@ -12,7 +12,7 @@ def login(username, password):
             session["user_id"] = user.id
             return True
         else:
-            return True #this should be False
+            return False
 
 def logout():
     del session["user_id"]
