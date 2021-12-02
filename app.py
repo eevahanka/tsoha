@@ -36,10 +36,14 @@ def register():
         username = request.form["username"]
         password1 = request.form["password1"]
         password2 = request.form["password2"]
-        if password1 != password2:
+        if len(username) == 0:
+            return render_template("error.html", problem="anna käyttäjänimi")
+        elif len(password1) == 0:
+            return render_template("error.html", problem="anna salasana")
+        elif password1 != password2:
             #salasanat ei täsmää
             return render_template("error.html", problem = "salasanat eivät täsmää")
-        if users.register(username, password1):
+        elif users.register(username, password1):
             return redirect("/")
         else:
             return render_template("error.html", problem = "todennäkösesti kannattaa vaihtaa käyttäjänimi")
