@@ -1,11 +1,14 @@
 from flask import render_template, request, redirect
 from flask import Flask
 from os import getenv
+from tsoha.topics import get_related_chains
+
 
 app = Flask(__name__)
 app.secret_key = getenv("SECRET_KEY")
 
 import users
+import topics
 
 @app.route("/")
 def index():
@@ -19,7 +22,7 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
         if users.login(username, password):
-            return redirect("/")
+            return redirect("/topics")
         else:
             return render_template("error.html", problem="kirjautuminen epäonnistui")
 
@@ -41,9 +44,18 @@ def register():
         elif len(password1) == 0:
             return render_template("error.html", problem="anna salasana")
         elif password1 != password2:
-            #salasanat ei täsmää
             return render_template("error.html", problem = "salasanat eivät täsmää")
         elif users.register(username, password1):
             return redirect("/")
         else:
-            return render_template("error.html", problem = "todennäkösesti kannattaa vaihtaa käyttäjänimi")
+            return render_template("error.html", problem = "käyttäjänimi on jo käytössä")
+
+@app.route("/topics")
+def topics():
+    return render_template("topics.html", topics=topics.get_topics())
+
+
+@app.route("/topic/<int:id>")
+def topic():
+    return render_template("topic.html", chains=topics.get_related_chains())
+

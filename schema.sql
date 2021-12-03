@@ -2,7 +2,7 @@ CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username TEXT UNIQUE,
     password TEXT, 
-    type TEXT
+    user_type TEXT
 );
 CREATE TABLE topics (
     id SERIAL PRIMARY KEY,
