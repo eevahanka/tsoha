@@ -1,8 +1,8 @@
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username TEXT UNIQUE,
-    password TEXT, 
-    user_type TEXT
+    password TEXT,
+    type TEXT
 );
 CREATE TABLE topics (
     id SERIAL PRIMARY KEY,
@@ -15,16 +15,16 @@ CREATE TABLE chains (
     chain_message, TEXT
     creater_id INTEGER REFERENCES users,
     visible BOOLEAN,
-    created_at TIMESTAMP,
-    topic INTEGER REFERENCES topics 
+    created_at TIMESTAMP
+    topic_id INTEGER REFERENCES topics 
 );
 CREATE TABLE messages (
     id SERIAL PRIMARY KEY,
-    sender INTEGER REFERENCES users,
+    sender_id INTEGER REFERENCES users,
     content TEXT,
     send_at TIMESTAMP,
     visible BOOLEAN,
-    chain INTEGER REFERENCES chains
+    chain_id INTEGER REFERENCES chains
 )
 
 CREATE TABLE logins ( 

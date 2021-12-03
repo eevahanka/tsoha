@@ -1,7 +1,6 @@
 from flask import render_template, request, redirect
 from flask import Flask
 from os import getenv
-from tsoha.topics import get_related_chains
 
 
 app = Flask(__name__)
@@ -9,6 +8,7 @@ app.secret_key = getenv("SECRET_KEY")
 
 import users
 import topics
+import chains
 
 @app.route("/")
 def index():
@@ -59,3 +59,6 @@ def topics():
 def topic():
     return render_template("topic.html", chains=topics.get_related_chains())
 
+@app.route("/chain/<int:id>")
+def chain():
+    return render_template("chain.html", messages=chains.get_related_messages(), topic_name=)
