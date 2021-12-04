@@ -9,6 +9,7 @@ app.secret_key = getenv("SECRET_KEY")
 import users
 import topics
 import chains
+import messages
 
 @app.route("/")
 def index():
@@ -56,9 +57,33 @@ def topics():
 
 
 @app.route("/topic/<int:id>")
-def topic():
-    return render_template("topic.html", chains=topics.get_related_chains())
+def topic(id):
+    return render_template("topic.html", chains=topics.get_related_chains(), topic_name=topics.get_topic_name(id))
 
 @app.route("/chain/<int:id>")
-def chain():
-    return render_template("chain.html", messages=chains.get_related_messages(), topic_name=)
+def chain(id):
+    return render_template("chain.html", messages=chains.get_related_messages(id), chain_name=chains.get_chain_name(id), topic_name=chains.get_topic_name(id)  )
+
+@app.route("/message<int:id>")
+def message(id):
+    return render_template("message.html", content=messages.get_message_content(id), sender = messages.get_sender(id))
+
+@app.route("/create_message", methods=["GET", "POST"])
+def create_message(id):
+    if request.method == "GET":
+        return render_template("create_message.html")
+    if request.method == "POST":
+        content = request.form["message"]
+        messages.create_message(users.user_id(), content, id )
+        return render_template("chain.html", messages=chains.get_related_messages(id), chain_name=chains.get_chain_name(id), topic_name=chains.get_topic_name(id))
+
+
+@app.route("/poll/<int:id>")
+def poll(id):
+    sql = "SELECT topic FROM polls WHERE id=:id"
+    result = db.session.execute(sql, {"id": id})
+    topic = result.fetchone()[0]
+    sql = "SELECT id, choice FROM choices WHERE poll_id=:id"
+    result = db.session.execute(sql, {"id": id})
+    choices = result.fetchall()
+    return render_template("poll.html", id=id, topic=topic, choices=choices)
