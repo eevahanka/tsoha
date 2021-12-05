@@ -32,5 +32,5 @@ def user_id():
 
 def username():
     result = db.session.execute("SELECT username FROM users WHERE id=:id", {"id": user_id()})
-    name = str(result.fetchone())[0]
+    name = str(result.fetchone())[2:-3]   # result.fetchone()[0]
     return name

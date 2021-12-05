@@ -12,10 +12,10 @@ CREATE TABLE topics (
 CREATE TABLE chains (
     id SERIAL PRIMARY KEY, 
     chain_name TEXT,
-    chain_message, TEXT
+    chain_message TEXT,
     creater_id INTEGER REFERENCES users,
     visible BOOLEAN,
-    created_at TIMESTAMP
+    created_at TIMESTAMP,
     topic_id INTEGER REFERENCES topics 
 );
 CREATE TABLE messages (
@@ -25,10 +25,10 @@ CREATE TABLE messages (
     send_at TIMESTAMP,
     visible BOOLEAN,
     chain_id INTEGER REFERENCES chains
-)
+);
 
 CREATE TABLE logins ( 
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users,
     login_time TIMESTAMP
-)
+);
