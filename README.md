@@ -4,7 +4,7 @@ Sovelluksen etusivulla on keskustelualueita, joilla on aihe. Alueilla on käytt�
 
 Käyttäjät ovat ylläpitäjiä, tai peruskäyttäjiä.
 
-Tällä hetkellä sovellukseen pystyy rekisteröitymään ja kirjautumaan sisään ja ulos; selaamaan keskustelualueita, ketjuja ja viestejä sekä muokkaamaan lähettämiään viestejä.
+Tällä hetkellä sovellukseen pystyy rekisteröitymään ja kirjautumaan sisään ja ulos; selaamaan keskustelualueita, ketjuja ja viestejä; lähettää viestejä sekä muokkaamaan lähettämiään viestejä.
 
 Ominaisuuksia:
 
