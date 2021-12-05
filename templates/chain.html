@@ -1,0 +1,18 @@
+{% if session.user_id %}
+<p>Olet kirjautunut nimellä: {{ username }}</p>
+<a href="/logout">Kirjaudu ulos</a> <br>
+<a href="/topic/{{ topic_id }}">takaisin </a> <br>
+
+{% for message in messages %}
+<p>Kirjoittaja: {{ message.username }} </p>
+{{message.content}} <br>
+<a href="/message/{{ message.id }}">Muokkaa viestiä</a> <br>
+{% endfor %}
+<br>
+<a href="/delete_chain/{{ id }}">Poista ketju</a> <br>
+<hr>{% else %}
+<p> Et ole kirjautunyt sisään! Kirjaudu sisään voidaksesi nähdä tämän sivun.</p>
+<a href="/login">Kirjaudu sisään</a>
+<a href="/register">Rekisteröidy</a>
+
+{% endif %}

@@ -1,0 +1,22 @@
+{% if session.user_id %}
+<p>Olet kirjautunut nimellä: {{ username }}</p> <br>
+<a href="/logout">Kirjaudu ulos</a> <br>
+<a href="/chain/{{ chain_id }}">takaisin keskusteluun </a> <br>
+<p>Lähettäjä {{ sender.username }}</p> <br>
+<p> {{ content.content }}</p> <br>
+
+<form action="/edit_message" method="post">
+    muokattu viesti : <input type="text" name="new_content">
+    <p>
+        <input type="submit" value="muokkaa viestiä">
+        <input type="hidden" name="id" value="{{ id }}">
+        <input type = "hidden" name="chain_id" value=" {{ chain_id }} ">
+</form>
+<br>
+<a href="/delete_message/{{ id }}">Poista viesti</a>
+<hr>{% else %}
+<p> Et ole kirjautunyt sisään! Kirjaudu sisään voidaksesi nähdä tämän sivun.</p>
+<a href="/login">Kirjaudu sisään</a>
+<a href="/register">Rekisteröidy</a>
+
+{% endif %}
