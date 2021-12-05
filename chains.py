@@ -3,7 +3,7 @@ from flask import session
 
 def create_chain(chain_name, chain_message, creater_id, topic_id):
     db.session.execute(
-        "INSERT INTO chains (chain_name, chain_message, creater_id, visible, created_at, topic_id) VALUES (:chain_name, :chain_message, creater_id, :visible, NOW(), :topic_id ", {"chain_name":chain_name, "chain_message":chain_message, "creater_id":creater_id, "visible": True, "topic_id":topic_id }) 
+        "INSERT INTO chains (chain_name, chain_message, creater_id, visible, created_at, topic_id) VALUES (:chain_name, :chain_message, creater_id, :visible, NOW(), :topic_id )", {"chain_name":chain_name, "chain_message":chain_message, "creater_id":creater_id, "visible": True, "topic_id":topic_id }) 
     db.session.commit()
 
 def delete_chain(chain_id, user_id):

@@ -29,7 +29,7 @@ def entitled_to_message(message_id, user_id):
         "SELECT sender_id from messages where id=:message_id", {
             "message_id": message_id}
     )
-    sender_id = result.fetchone()
+    sender_id = result.fetchone()[0]
     result = db.session.execute(
         "SELECT type from users where id=:user_id", {"user_id":user_id}
     )
