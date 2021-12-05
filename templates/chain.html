@@ -9,6 +9,15 @@
 <a href="/message/{{ message.id }}">Muokkaa viestiä</a> <br>
 {% endfor %}
 <br>
+
+<form action="/send_message" method="post">
+    viesti : <input type="text" name="content">
+    <p>
+        <input type="submit" value="kommentoi">
+        <input type="hidden" name="id" value="{{ id }}">
+</form>
+<br>
+
 <a href="/delete_chain/{{ id }}">Poista ketju</a> <br>
 <hr>{% else %}
 <p> Et ole kirjautunyt sisään! Kirjaudu sisään voidaksesi nähdä tämän sivun.</p>

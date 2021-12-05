@@ -109,13 +109,16 @@ def delete_topic(id):
 def edit_message():
     id = request.form["id"]
     chain_id = request.form["chain_id"]
-    print(10)
     content = request.form["new_content"]
-    print(31)
     chain_id = messages.get_related_chain(id)
-    print(11)
     messages.edit_message(id, users.user_id(), content)
-    print(21)
     return redirect("/chain/" + str(chain_id))
 
+
+@app.route("/send_message", methods=["POST"])
+def send_message():
+    id = request.form["id"]
+    content = request.form["content"]
+    messages.create_message(users.user_id(), content, messages.get_related_chain(id))
+    return redirect("/chain/" + str(id))
 

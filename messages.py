@@ -3,7 +3,7 @@ from db import db
 from flask import session
 
 def create_message(sender_id, content, chain_id):
-    db.session.execute("INSERT INTO messages (sender_id, content, send_at, visible, chain_id) VALUES (:sender_id, :content, NOW(), :visible, chain_id) ", {"sender_id":sender_id, "content":content, "visible":True, "chain_id":chain_id})
+    db.session.execute("INSERT INTO messages (sender_id, content, send_at, visible, chain_id) VALUES (:sender_id, :content, NOW(), :visible, :chain_id) ", {"sender_id":sender_id, "content":content, "visible":True, "chain_id":chain_id})
     db.session.commit()
 
 
