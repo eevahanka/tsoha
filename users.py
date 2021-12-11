@@ -40,4 +40,5 @@ def username():
 
 def is_admin():
     result = db.session.execute("SELECT type FROM users WHERE id=:id", {"id": user_id()})
-    return result.fetchone()[0] == 'adimin'
+    type = result.fetchone()[0]
+    return type == 'admin'

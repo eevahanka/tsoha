@@ -1,6 +1,7 @@
 {% if session.user_id %}
 <p>Olet kirjautunut nimellä: {{ username }}</p>
-<a href="/logout">Kirjaudu ulos</a> <br>
+<a href="/logout">Kirjaudu ulos</a> <br> <br>
+<p>Keskustelualueet:</p>
 {% for topic in topics%}
 {{ topic.topic_name }} <br>
 Uusin viesti: ???? <br>
@@ -8,10 +9,11 @@ Uusin viesti: ???? <br>
 <hr>
 {% endfor %}
 
-{% if is_adim %}
+{% if is_admin %}
 <p> Luo uusi keskustelualue </p>
 <form action="/create_topic" method="POST"> 
     nimi: <input type="text" name="topic_name"> <br>
+    <input type="submit" value="luo keskustelualue">
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 
 </form>

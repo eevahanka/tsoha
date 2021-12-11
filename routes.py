@@ -91,9 +91,12 @@ def create_topic():
     if request.method == "POST":
         if session["csrf_token"] != request.form["csrf_token"]:
             abort(403)
+        print(0)
         if users.is_admin():
-            topic_name = request.form["chain_name"]
+            topic_name = request.form["topic_name"]
+
             topics.create_topic(topic_name)
+            print(1)
             return redirect("/")
 
 @app.route("/delete_message/<int:id>")

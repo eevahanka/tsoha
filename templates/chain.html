@@ -1,12 +1,12 @@
 {% if session.user_id %}
 <p>Olet kirjautunut nimellä: {{ username }}</p>
 <a href="/logout">Kirjaudu ulos</a> <br>
-<a href="/topic/{{ topic_id }}">takaisin </a> <br>
+<a href="/topic/{{ topic_id }}">takaisin </a> <hr>
 
 {% for message in messages %}
-<p>Kirjoittaja: {{ message.username }} </p>
+<p> {{ message.username }} sanoo:</p>
 {{message.content}} <br>
-<a href="/message/{{ message.id }}">Muokkaa viestiä</a> <br>
+<a href="/message/{{ message.id }}">Muokkaa viestiä</a> <hr> 
 {% endfor %}
 <br>
 

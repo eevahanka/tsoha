@@ -35,7 +35,7 @@ def get_creater(chain_id):
     creater = db.session.execute(
         "SELECT users.username FROM chains LEFT JOIN users ON chains.creater_id = users.id WHERE chains-id = chain_id", {"chain_id": chain_id}
     )
-    return creater.fetcone()
+    return creater.fetcone()[0]
 
 def entitled_to_chain(chain_id, user_id):
     result = db.session.execute(

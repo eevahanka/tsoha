@@ -3,9 +3,11 @@
 <a href="/logout">Kirjaudu ulos</a> <br>
 <a href="/">takaisin  </a> <br>
 {{  topic_name  }} <br>
+<hr>
 {% for chain in chains%}
 {{chain.chain_name}} <br>
-<a href="/chain/{{ chain.id }}">Mene ketjuun</a> <br>
+{{chain.chain_message}} <br>
+<a href="/chain/{{ chain.id }}">Mene ketjuun</a> <hr>
 {% endfor %}
 <br>
 <a href="/delete_topic/{{ id }}">Poista </a> <br>
