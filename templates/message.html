@@ -6,8 +6,9 @@
 <p> {{ content.content }}</p> <br>
 
 <form action="/edit_message" method="post">
-    muokattu viesti : <input type="text" name="new_content">
-    <p>
+    muokattu viesti : 
+        <textarea name="new_content" rows="5" cols="40">
+        </textarea>
         <input type="submit" value="muokkaa viestiä">
         <input type="hidden" name="id" value="{{ id }}">
         <input type = "hidden" name="chain_id" value=" {{ chain_id }} ">

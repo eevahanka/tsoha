@@ -1,14 +1,15 @@
 from app import app
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, session, abort
 import messages
 import users
 import chains
 import topics
 
+
+
 @app.route("/")
 def index():
-    return render_template("index.html", username=users.username())
-
+    return render_template("index.html", username=users.username(), topics=topics.get_topics(), is_admin = users.is_admin())
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -18,7 +19,7 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
         if users.login(username, password):
-            return redirect("/topics")
+            return redirect("/")
         else:
             return render_template("error.html", problem="kirjautuminen epäonnistui")
 
@@ -48,44 +49,52 @@ def register():
         else:
             return render_template("error.html", problem="käyttäjänimi on jo käytössä")
 
-
-@app.route("/topics")
-def topics_page():
-    return render_template("topics.html", topics=topics.get_topics())
-
-
 @app.route("/topic/<int:id>")
 def topic(id):
-    return render_template("topic.html", chains=topics.get_related_chains(id), topic_name=topics.get_topic_name(id), topic_id=id)
+    return render_template("topic.html", username=users.username(), chains=topics.get_related_chains(id), topic_name=topics.get_topic_name(id), id=id, csfr_token=session["csrf_token"])
 
 
 @app.route("/chain/<int:id>")
 def chain(id):
-    return render_template("chain.html", messages=chains.get_related_messages(id), chain_name=chains.get_chain_name(id), topic_name=chains.get_topic_name(id), id=id, topic_id=chains.get_related_topic(id))
+    return render_template("chain.html", username=users.username(), messages=chains.get_related_messages(id), chain_name=chains.get_chain_name(id), topic_name=chains.get_topic_name(id), id=id, topic_id=chains.get_related_topic(id), csfr_token=session["csrf_token"])
 
 
 @app.route("/message/<int:id>", methods=["GET"])
 def message(id):
     if request.method == "GET":
-        return render_template("message.html", content=messages.get_content(id), sender=messages.get_sender(id), id=id, chain_id=messages.get_related_chain(id))
-    #if request.method == "POST":
-    #    print(0)
-    #    content = request.form["message"]
-    #    chain_id = messages.get_related_chain(id)
-    #    print(1)
-    #    messages.edit_message(id, users.user_id(), content)
-    #    print(2)
-    #    return render_template(f"/chain.html/{chain_id}", messages=chains.get_related_messages(chain_id), chain_name=chains.get_chain_name(chain_id), topic_name=chains.get_topic_name(chain_id))
+        return render_template("message.html", username=users.username(), content=messages.get_content(id), sender=messages.get_sender(id), id=id, chain_id=messages.get_related_chain(id))
 
 
-@app.route("/create_message", methods=["GET", "POST"])
-def create_message(chain_id):
-    if request.method == "GET":
-        return render_template("create_message.html")
+#@app.route("/create_message", methods=["GET", "POST"])
+#def create_message(chain_id):
+#    if request.method == "GET":
+#        return render_template("create_message.html")
+#    if request.method == "POST":
+#        content = request.form["message"]
+#        messages.create_message(users.user_id(), content, chain_id)
+#        return redirect("chain.html", username=users.username(), messages=chains.get_related_messages(chain_id), chain_name=chains.get_chain_name(chain_id), topic_name=chains.get_topic_name(chain_id))
+
+@app.route("/create_chain", methods=["POST"])
+def create_chain():
     if request.method == "POST":
-        content = request.form["message"]
-        messages.create_message(users.user_id(), content, chain_id)
-        return redirect("chain.html", messages=chains.get_related_messages(chain_id), chain_name=chains.get_chain_name(chain_id), topic_name=chains.get_topic_name(chain_id))
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
+        id = request.form["id"]
+        chain_name = request.form["chain_name"]
+        chain_message = request.form["chain_message"]
+        chains.create_chain(chain_name, chain_message, users.user_id(), chains.get_related_topic(id))
+        return redirect("/topic/" + str(id))
+
+
+@app.route("/create_topic", methods=["POST"])
+def create_topic():
+    if request.method == "POST":
+        if session["csrf_token"] != request.form["csrf_token"]:
+            abort(403)
+        if users.is_admin():
+            topic_name = request.form["chain_name"]
+            topics.create_topic(topic_name)
+            return redirect("/")
 
 @app.route("/delete_message/<int:id>")
 def delete_message(id):
@@ -102,7 +111,7 @@ def delete_chain(id):
 @app.route("/delete_topic/<int:id>")
 def delete_topic(id):
     topics.delete_topic(id, users.user_id())
-    return redirect("/topics")
+    return redirect("/index")
 
 
 @app.route("/edit_message", methods=["POST"])

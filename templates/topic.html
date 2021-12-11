@@ -1,13 +1,26 @@
 {% if session.user_id %}
 <p>Olet kirjautunut nimellä: {{ username }}</p>
 <a href="/logout">Kirjaudu ulos</a> <br>
+<a href="/">takaisin  </a> <br>
 {{  topic_name  }} <br>
 {% for chain in chains%}
 {{chain.chain_name}} <br>
-<a href="/chain/{{ chain.id }}">Mene ketjuun</a> 
+<a href="/chain/{{ chain.id }}">Mene ketjuun</a> <br>
 {% endfor %}
 <br>
 <a href="/delete_topic/{{ id }}">Poista </a> <br>
+<p>Luo uusi ketu</p> <br>
+<form action="/create_chain" method="POST">
+    otsikko : <input type="text" name="chain_name"> <br> 
+    viesti:
+    <textarea name="chain_message" rows="5" cols="40">
+    </textarea>
+        <input type="submit" value="luo ketju">
+        <input type="hidden" name="id" value="{{ id }}">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+</form>
+<br>
+
 <hr>{% else %}
 <p> Et ole kirjautunyt sisään! Kirjaudu sisään voidaksesi nähdä tämän sivun.</p>
 <a href="/login">Kirjaudu sisään</a>
