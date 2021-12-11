@@ -1,5 +1,6 @@
 {% if session.user_id %}
-<p>Olet kirjautunut nimellä: {{ username }}</p>
+<p>Olet kirjautunut nimellä: {{ username }}</p><br>
+<p>edellinen kirjautuminen: {{ last_login }}</p> <br>
 <a href="/logout">Kirjaudu ulos</a> <br> <br>
 <p>Keskustelualueet:</p>
 {% for topic in topics%}

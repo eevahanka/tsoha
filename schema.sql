@@ -30,5 +30,6 @@ CREATE TABLE messages (
 CREATE TABLE logins ( 
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users,
-    login_time TIMESTAMP
+    login_time_timestamp TIMESTAMP,
+    login_time TEXT
 );

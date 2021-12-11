@@ -9,7 +9,7 @@ import topics
 
 @app.route("/")
 def index():
-    return render_template("index.html", username=users.username(), topics=topics.get_topics(), is_admin = users.is_admin())
+    return render_template("index.html", username=users.username(), topics=topics.get_topics(), is_admin = users.is_admin(), last_login=users.last_login())
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -56,7 +56,7 @@ def topic(id):
 
 @app.route("/chain/<int:id>")
 def chain(id):
-    return render_template("chain.html", username=users.username(), messages=chains.get_related_messages(id), chain_name=chains.get_chain_name(id), topic_name=chains.get_topic_name(id), id=id, topic_id=chains.get_related_topic(id), csfr_token=session["csrf_token"])
+    return render_template("chain.html", username=users.username(), messages=chains.get_related_messages(id), chain_name=chains.get_chain_name(id), topic_name=chains.get_topic_name(id), id=id, topic_id=chains.get_related_topic(id), csfr_token=session["csrf_token"], is_entitled=chains.entitled_to_chain())
 
 
 @app.route("/message/<int:id>", methods=["GET"])
@@ -125,6 +125,7 @@ def edit_message():
     chain_id = messages.get_related_chain(id)
     messages.edit_message(id, users.user_id(), content)
     return redirect("/chain/" + str(chain_id))
+
 
 
 @app.route("/send_message", methods=["POST"])
