@@ -10,7 +10,11 @@
 <a href="/chain/{{ chain.id }}">Mene ketjuun</a> <hr>
 {% endfor %}
 <br>
-<a href="/delete_topic/{{ id }}">Poista </a> <br>
+<form action="/delete_topic" method="post">
+    <input type="submit" value="poista keskustelualue">
+    <input type="hidden" name="id" value="{{ id }}">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+</form> <br>
 <p>Luo uusi ketu</p> <br>
 <form action="/create_chain" method="POST">
     otsikko : <input type="text" name="chain_name"> <br> 

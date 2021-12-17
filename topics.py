@@ -11,7 +11,8 @@ def delete_topic(topic_id, user_id):
         db.session.commit()
 
 def get_topics():
-    topics = db.session.execute("SELECT topic_name, id FROM topics WHERE visible=:visible",{"visible": True} )
+    topics = db.session.execute(
+        "SELECT topic_name, id FROM topics WHERE visible=:visible", {"visible": True})
     return topics.fetchall()
 
 def get_related_chains(topic_id):

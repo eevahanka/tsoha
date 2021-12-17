@@ -44,7 +44,7 @@ def entitled_to_chain(chain_id, user_id):
     )
     creater_id = result.fetchone()
     result = db.session.execute(
-        "SELECT type from messages where id=:user_id", {"user_id": user_id}
+        "SELECT type from users where id=:user_id", {"user_id": user_id}
     )
     user_type = result.fetchone()
     return user_id == creater_id or user_type == "admin"

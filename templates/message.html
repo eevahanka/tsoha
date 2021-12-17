@@ -11,10 +11,14 @@
         </textarea>
         <input type="submit" value="muokkaa viestiä">
         <input type="hidden" name="id" value="{{ id }}">
-        <input type = "hidden" name="chain_id" value=" {{ chain_id }} ">
+        <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
 <br>
-<a href="/delete_message/{{ id }}">Poista viesti</a>
+<form action="/delete_message" method="post">
+    <input type="submit" value="poista viesti">
+    <input type="hidden" name="id" value="{{ id }}">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+</form> <br>
 <hr>{% else %}
 <p> Et ole kirjautunyt sisään! Kirjaudu sisään voidaksesi nähdä tämän sivun.</p>
 <a href="/login">Kirjaudu sisään</a>
