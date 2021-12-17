@@ -24,7 +24,6 @@ def get_sender(message_id):
     return sender.fetchone()
 
 def entitled_to_message(message_id, user_id):
-    print(0)
     result= db.session.execute(
         "SELECT sender_id from messages where id=:message_id", {
             "message_id": message_id}
@@ -39,7 +38,6 @@ def entitled_to_message(message_id, user_id):
 
 def edit_message(message_id, user_id, new_content):
     if entitled_to_message(message_id, user_id):
-        print(3)
         db.session.execute(
             "UPDATE messages SET content=:content WHERE id=:message_id", {"content": new_content, "message_id":message_id})
         db.session.commit()

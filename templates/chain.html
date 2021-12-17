@@ -11,9 +11,12 @@
 <br>
 
 <form action="/send_message" method="post">
-    viesti : <input type="text" name="content">
+    viesti :
+    <textarea name="new_content" rows="5" cols="40" required minlength="1" maxlength="128">
+</textarea>
+
     <p>
-        <input type="submit" value="kommentoi">
+        <input type="submit" value="kommentoi" >
         <input type="hidden" name="id" value="{{ id }}">
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>

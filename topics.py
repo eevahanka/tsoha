@@ -27,6 +27,6 @@ def get_topic_name(topic_id):
 
 def entitled_to_topics(user_id):
     result = db.session.execute(
-        "SELECT type from messages where id=:user_id", {"user_id": user_id})
-    user_type = result.fetchone()
+        "SELECT type from users where id=:user_id", {"user_id": user_id})
+    user_type = result.fetchone()[0]
     return user_type == "admin"

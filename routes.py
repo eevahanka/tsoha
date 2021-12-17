@@ -74,7 +74,7 @@ def create_chain():
         id = request.form["id"]
         chain_name = request.form["chain_name"]
         chain_message = request.form["chain_message"]
-        chains.create_chain(chain_name, chain_message, users.user_id(), chains.get_related_topic(id))
+        chains.create_chain(chain_name, chain_message, users.user_id(), id)
         return redirect("/topic/" + str(id))
 
 
@@ -83,11 +83,9 @@ def create_topic():
     if request.method == "POST":
         if session["csrf_token"] != request.form["csrf_token"]:
             abort(403)
-        print(0)
         if users.is_admin():
             topic_name = request.form["topic_name"]
             topics.create_topic(topic_name)
-            print(1)
             return redirect("/")
 
 
@@ -116,7 +114,7 @@ def delete_topic():
         abort(403)
     id = request.form["id"]
     topics.delete_topic(id, users.user_id())
-    return redirect("/index")
+    return redirect("/")
 
 
 @app.route("/edit_message", methods=["POST"])

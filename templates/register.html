@@ -1,9 +1,9 @@
 <form action="/register" method="post">
-    Käyttäjänimi: <input type="text" name="username">
+    Käyttäjänimi: <input type="text" name="username" required minlength="1" maxlength="16">
     <p>
-        Salasana: <input type="password" name="password1">
+        Salasana: <input type="password" name="password1" required minlength="1" maxlength="16">
     <p>
-        Salasana uudelleen: <input type="password" name="password2">
+        Salasana uudelleen: <input type="password" name="password2" required minlength="1" maxlength="16">
     <p>
         <input type="submit" value="Rekisteröidy">
 </form>

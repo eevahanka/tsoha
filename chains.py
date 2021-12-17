@@ -2,7 +2,6 @@ from db import db
 from flask import session
 
 def create_chain(chain_name, chain_message, creater_id, topic_id):
-
     db.session.execute(
         "INSERT INTO chains (chain_name, chain_message, creater_id, visible, created_at, topic_id) VALUES (:chain_name, :chain_message, :creater_id, :visible, NOW(), :topic_id )", {"chain_name":chain_name, "chain_message":chain_message, "creater_id":creater_id, "visible": True, "topic_id":topic_id }) 
     db.session.commit()
@@ -29,7 +28,7 @@ def get_chain_name(chain_id):
 def get_topic_name(chain_id):
     name = db.session.execute(
         "SELECT topics.topic_name FROM chains LEFT JOIN topics ON chains.topic_id = topics.id WHERE chains.id =:chain_id", {"chain_id": chain_id})
-    return str(name.fetchone())[2:-3] #name.fetcone()[0]
+    return str(name.fetchone())[2:-3] 
 
 def get_creater(chain_id):
     creater = db.session.execute(
@@ -46,13 +45,14 @@ def entitled_to_chain(chain_id, user_id):
     result = db.session.execute(
         "SELECT type from users where id=:user_id", {"user_id": user_id}
     )
-    user_type = result.fetchone()
+    user_type = result.fetchone()[0]
     return user_id == creater_id or user_type == "admin"
 
 def get_related_topic(chain_id):
+    print(chain_id)
     result = db.session.execute(
         "SELECT topic_id from chains WHERE id=:chain_id", {
             "chain_id": chain_id}
     )
-    topic_id = result.fetchone()[0]
+    topic_id = result.fetchone()
     return topic_id

@@ -17,10 +17,10 @@
 </form> <br>
 <p>Luo uusi ketu</p> <br>
 <form action="/create_chain" method="POST">
-    otsikko : <input type="text" name="chain_name"> <br> 
+    otsikko : <input type="text" name="chain_name" required minlength="1" maxlength="32"> <br> 
     viesti:
-    <textarea name="chain_message" rows="5" cols="40">
-    </textarea>
+    <textarea name="chain_message" rows="5" cols="40" required minlength="1" maxlength="128">
+</textarea>
         <input type="submit" value="luo ketju">
         <input type="hidden" name="id" value="{{ id }}">
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
