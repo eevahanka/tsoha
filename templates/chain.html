@@ -3,6 +3,12 @@
 <a href="/logout">Kirjaudu ulos</a> <br>
 <a href="/topic/{{ topic_id }}">takaisin </a> <hr>
 
+<p> keskustelualue: {{ topic_name }} </p>
+<hr>
+<p> {{ chain.chain_name }} </p>
+<p> {{ chain.chain_message }} </p>
+<br>
+
 {% for message in messages %}
 <p> {{ message.username }} sanoo:</p>
 {{message.content}} <br>
@@ -12,7 +18,7 @@
 
 <form action="/send_message" method="post">
     viesti :
-    <textarea name="new_content" rows="5" cols="40" required minlength="1" maxlength="128">
+    <textarea name="content" rows="5" cols="40" required minlength="1" maxlength="128">
 </textarea>
 
     <p>

@@ -3,7 +3,7 @@
 <a href="/logout">Kirjaudu ulos</a> <br>
 <a href="/chain/{{ chain_id }}">takaisin keskusteluun </a> <br>
 <p>Lähettäjä {{ sender.username }}</p> <br>
-<p> {{ content.content }}</p> <br>
+<p> {{ content }}</p> <br>
 
 <form action="/edit_message" method="post">
     muokattu viesti : 
@@ -12,6 +12,7 @@
         <input type="submit" value="muokkaa viestiä">
         <input type="hidden" name="id" value="{{ id }}">
         <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+        
 </form>
 <br>
 <form action="/delete_message" method="post">

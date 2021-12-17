@@ -16,7 +16,7 @@ def delete_message(user_id, message_id):
 def get_content(message_id):
     content = db.session.execute(
         "SELECT content FROM messages WHERE id=:message_id", {"message_id": message_id})
-    return content.fetchone()
+    return content.fetchone()[0]
 
 def get_sender(message_id):
     sender = db.session.execute(

@@ -17,12 +17,12 @@ def get_chains(topic_id):
 
 def get_related_messages(chain_id):
     messages = db.session.execute(
-        "SELECT messages.content, messages.sender_id, messages.id, users.username FROM messages LEFT JOIN users ON messages.sender_id = users.id WHERE visible= True AND messages.chain_id=chain_id", {"chain_id": chain_id})
+        "SELECT messages.content, messages.sender_id, messages.id, users.username FROM messages LEFT JOIN users ON messages.sender_id = users.id WHERE visible= True AND messages.chain_id=:chain_id", {"chain_id": chain_id})
     return messages.fetchall()
 
-def get_chain_name(chain_id):
+def get_chain(chain_id):
     name = db.session.execute(
-        "SELECT chain_name FROM chains WHERE id=:chain_id", {"chain_id": chain_id})
+        "SELECT chain_name, chain_message FROM chains WHERE id=:chain_id", {"chain_id": chain_id})
     return name.fetchone()
 
 def get_topic_name(chain_id):
@@ -49,10 +49,9 @@ def entitled_to_chain(chain_id, user_id):
     return user_id == creater_id or user_type == "admin"
 
 def get_related_topic(chain_id):
-    print(chain_id)
     result = db.session.execute(
         "SELECT topic_id from chains WHERE id=:chain_id", {
             "chain_id": chain_id}
     )
-    topic_id = result.fetchone()
+    topic_id = result.fetchone()[0]
     return topic_id

@@ -5,7 +5,7 @@
 <p>Keskustelualueet:</p>
 {% for topic in topics%}
 {{ topic.topic_name }} <br>
-Uusin viesti: ???? <br>
+
 <a href="/topic/{{ topic.id }}">Mene keskustelualueelle</a>
 <hr>
 {% endfor %}

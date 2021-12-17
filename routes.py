@@ -57,7 +57,7 @@ def topic(id):
 @app.route("/chain/<int:id>")
 def chain(id):
     user_id = users.user_id()
-    return render_template("chain.html", username=users.username(), messages=chains.get_related_messages(id), chain_name=chains.get_chain_name(id), topic_name=chains.get_topic_name(id), id=id, topic_id=chains.get_related_topic(id), csfr_token=session["csrf_token"], is_entitled=chains.entitled_to_chain(id, user_id))
+    return render_template("chain.html", username=users.username(), messages=chains.get_related_messages(id), chain=chains.get_chain(id), topic_name=chains.get_topic_name(id), id=id, topic_id=chains.get_related_topic(id), csfr_token=session["csrf_token"], is_entitled=chains.entitled_to_chain(id, user_id))
 
 
 @app.route("/message/<int:id>", methods=["GET"])
@@ -135,6 +135,6 @@ def send_message():
         abort(403)
     id = request.form["id"]
     content = request.form["content"]
-    messages.create_message(users.user_id(), content, messages.get_related_chain(id))
+    messages.create_message(users.user_id(), content, id)
     return redirect("/chain/" + str(id))
 
